@@ -5,8 +5,8 @@ from selenium.webdriver.common.by import By
 
 
 def parse(faculty: str, group_num: str) -> list:
+    print(group_num)
     driver = webdriver.Edge()
-    driver.maximize_window()
     driver.get("https://ssau.ru/rasp")
 
     #open faculty page
@@ -44,10 +44,12 @@ def parse(faculty: str, group_num: str) -> list:
     
     today_subjects = subjects[curr_day::6]
 
+    today_subjects = [x for x in today_subjects if x != ""]
+
     driver.close()
     driver.quit()
 
-    return today_subjects
+    return '\n'.join(today_subjects)
 
 if __name__ == "__main__":
-    parse("Институт информатики и кибернетики", "6212-100503D")
+    print(parse("Институт информатики и кибернетики", "6312-100503D"))
